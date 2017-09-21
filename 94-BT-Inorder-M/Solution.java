@@ -32,8 +32,31 @@
  *
  */
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Stack;
+
 class Solution {
+    private Stack<TreeNode> stack = new Stack<>();
+    
     public List<Integer> inorderTraversal(TreeNode root) {
-        
+      List<Integer> result = new ArrayList<>();
+      if (root == null) return result;
+      this.addLeft(root);
+      // if (stack.empty()) stack.push(root);
+      while(!stack.empty()) {
+        TreeNode current = stack.pop();
+        result.add(current.val);
+        if (current.right != null) this.addLeft(current.right);
+      }
+      return result;
+    }
+
+    private void addLeft(TreeNode node) {
+      while (node.left != null) {
+        stack.push(node);
+        node = node.left;
+      }
+      stack.push(node);
     }
 }

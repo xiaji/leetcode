@@ -1,8 +1,8 @@
 // Source: https://leetcode.com/problems/binary-tree-postorder-traversal/description/
 // Author: xiaji
 // Date: 2017-09-21
-// Solution:
-
+// Solution: Two stacks; postorder traversal is just reverse of preorder traversal 
+// (travel from right to left)
 
 /**
  * Given a binary tree, return the postorder traversal of its nodes' values.
@@ -17,8 +17,8 @@
  * */
 
 /** Mistakes:
- *
- *
+ * type of postorder should be Stack<Integer>, not Stack<TreeNode>
+ * becasue it will store the result of List
  */
 
 /**
@@ -31,7 +31,23 @@
  * }
  */
 class Solution {
-    public List<Integer> postorderTraversal(TreeNode root) {
-        
+  // private Stack<TreeNode> stack = new Stack<>();
+
+  public List<Integer> postorderTraversal(TreeNode root) {
+    Stack<TreeNode> preorder = new Stack<>();
+    Stack<Integer> postorder = new Stack<>();
+    List<Integer> result = new ArrayList<>();
+    if (root == null) return result;
+    if (preorder.isEmpty()) preorder.push(root);
+    while (!preorder.isEmpty()) {
+      TreeNode current = preorder.pop();
+      postorder.push(current.val);
+      if (current.left != null) preorder.push(current.left);
+      if (current.right != null) preorder.push(current.right);
     }
+    while (!postorder.isEmpty()) {
+      result.add(postorder.pop());
+    }
+    return result;
+  }
 }

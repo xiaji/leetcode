@@ -32,8 +32,23 @@
  *
  */
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Stack;
+
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
-        
+      List<Integer> result = new ArrayList<>();
+      if (root == null) return result;
+      Stack<TreeNode> inorderStack = new Stack<>();
+      // List<Integer> result = new ArrayList<>();
+      if (inorderStack.empty()) inorderStack.push(root);
+      while(!inorderStack.empty()) {
+        TreeNode current = inorderStack.pop();
+        result.add(current.val);
+        if (current.right != null) inorderStack.push(current.right);
+        if (current.left != null) inorderStack.push(current.left);
+      }
+      return result;
     }
 }
