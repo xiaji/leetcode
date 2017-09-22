@@ -1,7 +1,7 @@
 // Source: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/description/
 // Author: xiaji
-// Date: 2017-09-21
-// Solution:
+// Date: 2017-09-22
+// Solution: data structure queue for BFS
 
 
 /**
@@ -29,12 +29,36 @@
  */
 
 /** Mistakes:
- *
- *
+ * there are three ways to implement DFS
+ * 2 queues
+ * 1 queue + dummy node
+ * 1 queue
  */
 
 class Solution {
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        
+  public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    Queue<TreeNode> queue = new LinkedList<TreeNode>();
+    queue.offer(root);
+    int j = 0;
+    while (!queue.isEmpty()) {
+      List<Integer> level = new ArrayList<Integer>();
+      int size = queue.size();
+      j++;
+      for (int i = 0; i < size; i++) {
+        TreeNode head = queue.poll();
+        level.add(head.val);
+        if (j % 2 == 1) {
+          if (head.right != null) queue.offer(head.right);
+          if (head.left != null) queue.offer(head.left);
+        } else {
+          if (head.left != null) queue.offer(head.left);
+          if (head.right != null) queue.offer(head.right);
+        }
+      }
+      result.add(level);
     }
+    return result;
+  }
 }

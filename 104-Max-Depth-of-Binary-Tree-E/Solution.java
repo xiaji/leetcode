@@ -1,7 +1,7 @@
 // Source: https://leetcode.com/problems/maximum-depth-of-binary-tree/description/
 // Author: xiaji
 // Date: 2017-09-21
-// Solution:
+// Solution: divide and conquer
 
 
 /**
@@ -21,12 +21,16 @@
  */
 
 /** Mistakes:
- *
+ * difference between traverse and divide conquer
  *
  */
 
 class Solution {
     public int maxDepth(TreeNode root) {
-        
+        if (root == null) return 0;
+
+        int left = maxDepth(root.left);
+        int right = maxDepth(root.right);
+        return Math.max(left, right) + 1;
     }
 }

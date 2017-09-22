@@ -1,6 +1,6 @@
 // Source: https://leetcode.com/problems/implement-stack-using-queues/description/
 // Author: xiaji
-// Date: 2017-09-21
+// Date: 2017-09-22
 // Solution:
 
 
@@ -25,30 +25,44 @@
  */
 
 class MyStack {
-
+    private Queue<Integer> stack;
+    private Queue<Integer> temp;
     /** Initialize your data structure here. */
     public MyStack() {
-        
+        stack = new LinkedList<Integer>();
+        temp = new LinkedList<Integer>();
     }
     
     /** Push element x onto stack. */
     public void push(int x) {
-        
+        while (!temp.isEmpty()) stack.offer(temp.poll());
+        stack.offer(x);
     }
     
     /** Removes the element on top of the stack and returns that element. */
     public int pop() {
-        
+        if (stack.isEmpty()) return Integer.MIN_VALUE;
+        while (stack.size() != 1) temp.offer(stack.poll());
+        int result = stack.poll();
+        while (!temp.isEmpty()) stack.offer(temp.poll());
+        return result;
     }
     
     /** Get the top element. */
     public int top() {
-        
+        if (stack.isEmpty()) return Integer.MIN_VALUE;
+        int result = 0;
+        while (!stack.isEmpty()) {
+          if (stack.size() == 1) result = stack.peek();
+          temp.offer(stack.poll());
+        }
+        while (!temp.isEmpty()) stack.offer(temp.poll());
+        return result;
     }
     
     /** Returns whether the stack is empty. */
     public boolean empty() {
-        
+        return stack.isEmpty();
     }
 }
 

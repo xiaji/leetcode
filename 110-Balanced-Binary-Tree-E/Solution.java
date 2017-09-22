@@ -1,7 +1,7 @@
 // Source: https://leetcode.com/problems/balanced-binary-tree/description/
 // Author: xiaji
 // Date: 2017-09-21
-// Solution:
+// Solution: divide and conquer
 
 
 /**
@@ -21,12 +21,21 @@
  */
 
 /** Mistakes:
- *
- *
+ * Interview: shoud explain what's the meaning of Depth, and return value;
+ * Optimization: Depth should return ResultType class contains Depth and isBalance
  */
 
 class Solution {
     public boolean isBalanced(TreeNode root) {
-        
+      return Depth(root) != -1;
+    }
+
+    private int Depth(TreeNode node) {
+      if (node == null) return 0;
+      int right = Depth(node.right);
+      int left = Depth(node.left);
+      if (left == -1 || right == -1 || Math.abs(right - left) > 1)
+        return -1;
+      return Math.max(right, left) + 1;
     }
 }
