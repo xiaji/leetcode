@@ -1,6 +1,6 @@
 // Source: https://leetcode.com/problems/path-sum/description/
 // Author: xiaji
-// Date: 2017-09-21
+// Date: 2017-09-23
 // Solution:
 
 

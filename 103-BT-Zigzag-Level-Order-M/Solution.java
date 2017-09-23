@@ -33,6 +33,7 @@
  * 2 queues
  * 1 queue + dummy node
  * 1 queue
+ * follow Qs: can we not use stack to implement it?
  */
 
 class Solution {
@@ -44,18 +45,19 @@ class Solution {
     int j = 0;
     while (!queue.isEmpty()) {
       List<Integer> level = new ArrayList<Integer>();
+      Stack<Integer> temp = new Stack<Integer>();
       int size = queue.size();
       j++;
       for (int i = 0; i < size; i++) {
         TreeNode head = queue.poll();
-        level.add(head.val);
-        if (j % 2 == 1) {
-          if (head.right != null) queue.offer(head.right);
-          if (head.left != null) queue.offer(head.left);
-        } else {
-          if (head.left != null) queue.offer(head.left);
-          if (head.right != null) queue.offer(head.right);
-        }
+        // level.add(head.val);
+        if (j % 2 == 0) temp.push(head.val);
+        else level.add(head.val);
+        if (head.left != null) queue.offer(head.left);
+        if (head.right != null) queue.offer(head.right);
+      }
+      if (j % 2 == 0) {
+        while (!temp.isEmpty()) level.add(temp.pop());
       }
       result.add(level);
     }

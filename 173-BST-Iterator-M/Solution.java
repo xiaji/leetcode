@@ -1,11 +1,11 @@
 // Source: https://leetcode.com/problems/binary-search-tree-iterator/description/
 // Author: xiaji
-// Date: 2017-09-21
+// Date: 2017-09-23
 // Solution:
 
 
 /**
- * mplement an iterator over a binary search tree (BST). 
+ * implement an iterator over a binary search tree (BST). 
  * Your iterator will be initialized with the root node of a BST.
  * Calling next() will return the next smallest number in the BST.
  * Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
