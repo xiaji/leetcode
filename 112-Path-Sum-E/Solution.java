@@ -1,7 +1,7 @@
 // Source: https://leetcode.com/problems/path-sum/description/
 // Author: xiaji
-// Date: 2017-09-23
-// Solution:
+// Date: 2017-09-24
+// Solution: recursion / queue
 
 
 /**
@@ -30,12 +30,14 @@
  */
 
 /** Mistakes:
- *
+ * not divide and conquer; just recursion, to cal the leaf whether equals to the sum-
  *
  */
 
 class Solution {
     public boolean hasPathSum(TreeNode root, int sum) {
-        
+       if (root == null) return false;
+       if (root.val == sum && (root.left == null && root.right == null)) return true;
+       return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
     }
 }
