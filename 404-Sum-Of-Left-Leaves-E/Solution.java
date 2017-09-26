@@ -36,7 +36,7 @@ class Solution {
     public int sumOfLeftLeaves(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         this.findLeftLeaves(root, result);
-        if (result.size() == 1 && root.left == null && root.right == null) return 0;
+        if (root != null && root.left == null && root.right == null) return 0;
         int sum = 0;
         for (int i : result) sum += i;
         return sum;

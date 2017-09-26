@@ -1,7 +1,7 @@
 // Source: https://leetcode.com/problems/binary-search-tree-iterator/description/
 // Author: xiaji
-// Date: 2017-09-23
-// Solution:
+// Date: 2017-09-26
+// Solution: use stack to iterate inorder of BST, because inorder of BST is non-decrement
 
 
 /**
@@ -22,24 +22,42 @@
  */
 
 /** Mistakes:
- *
- *
+ * use ArrayList to store the result, when use remove method, which needs an index variable;
+ * instead reverse the result, just use Queue to pop the first element(the next smallest element)
  */
 
 public class BSTIterator {
-
+    // private TreeNode current;
+    Stack<TreeNode> stack;
+    Queue<Integer> result;
     public BSTIterator(TreeNode root) {
-        
+        stack = new Stack<TreeNode>();
+        result = new LinkedList<Integer>();
+        if (root == null) {
+        stack.push(root);
+        while (!stack.isEmpty()) {
+          while (root.left != null) {
+            stack.push(root.left);
+            root = root.left;
+          }
+          TreeNode current = stack.pop();
+          result.add(current.val);
+          if (current.right != null) {
+            root = current.right;
+            stack.push(root);
+          }
+        }
+        }
     }
 
     /** @return whether we have a next smallest number */
     public boolean hasNext() {
-        
+        return !result.isEmpty();
     }
 
     /** @return the next smallest number */
     public int next() {
-        
+        return result.remove();
     }
 }
 

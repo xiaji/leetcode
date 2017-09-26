@@ -25,6 +25,17 @@
 
 class Solution {
     public TreeNode sortedArrayToBST(int[] nums) {
-        
+        if (nums == null || nums.length == 0) return null;
+        int start = 0, end = nums.length - 1;
+        return toBST(nums, start, end);
+    }
+    
+    private TreeNode toBST(int[] nums, int lo, int hi) {
+        if (lo > hi) return null;
+        int mid = lo + (hi - lo) / 2;
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = toBST(nums, lo, mid - 1);
+        root.right = toBST(nums, mid + 1, hi);
+        return root;
     }
 }
