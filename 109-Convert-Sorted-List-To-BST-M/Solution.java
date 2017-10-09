@@ -1,6 +1,6 @@
 // Source: https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/description/
 // Author: xiaji
-// Date: 2017-09-21
+// Date: 2017-10-07
 // Solution:
 
 
@@ -32,6 +32,22 @@
 
 class Solution {
     public TreeNode sortedListToBST(ListNode head) {
-        
+        if (head == null) return null;
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+          list.add(head.val);
+          head = head.next;
+        }
+        int lo = 0 , hi = list.size() - 1;
+        return this.constructBST(list, lo, hi);
+    }
+
+    private TreeNode constructBST(List list, int lo, int hi) {
+      if (lo > hi) return null;
+      int mid = lo + (hi - lo) / 2;
+      TreeNode root = new TreeNode(list.get(mid));
+      root.left = constructBST(list, lo, mid - 1);
+      root.right = constructBST(list, mid + 1, hi);
+      return root;
     }
 }
